@@ -1,0 +1,89 @@
+.modal {
+	&__box {
+		width: 30rem;
+		background-color: #fff;
+		// margin-top: 5rem;
+		padding: 1.5rem 1.5rem;
+		border-radius: 0.8rem;
+		position: relative;
+		// top: 0; //-600px
+		// top: 300px;
+	}
+	&__section {
+		&--toggle {
+			display: flex;
+			justify-content: space-between;
+			line-height: 2.5;
+		}
+		&:not(:first-child) {
+			margin-top: 2rem;
+		}
+
+		& > label {
+			font-size: 1rem;
+			font-weight: 700;
+			color: $color-tertiary-dark_gray;
+		}
+	}
+	&__header {
+		height: 3rem;
+		position: relative;
+		border-bottom: 0.5px solid $color-tertiary-light_gray;
+		& > a {
+			display: block;
+			position: absolute;
+			height: 1rem;
+			width: 1rem;
+			right: 1%;
+			color: $color-tertiary-dark_gray;
+			line-height: 0;
+		}
+		& > h1 {
+			font-weight: 900;
+			font-size: 1.5rem;
+			color: $color-tertiary-light_gray;
+			display: block;
+			// outline: 1px solid $color-tertiary-dark_gray;
+		}
+	}
+	&__inputs {
+		// margin-top: 2rem;
+		justify-content: space-between;
+		align-items: center;
+
+		div {
+			text-align: left;
+			max-width: 6.25rem;
+			font-size: 1rem;
+			color: $color-tertiary-dark_gray;
+			font-weight: 700;
+		}
+
+		input[type="number"] {
+			height: 3rem;
+			width: 6.25rem;
+			padding: 0.5rem 0.5rem;
+			margin-top: 5px;
+			font-size: 1rem;
+			background-color: rgb(239, 239, 239);
+			color: $color-tertiary-dark_gray;
+			border: none;
+
+			&:active,
+			&:focus {
+				border: none;
+				outline: none;
+			}
+		}
+	}
+
+	&__btn {
+		display: block;
+		position: relative;
+		height: 3rem;
+		width: 100%;
+		line-height: 3rem;
+		border-radius: 10px;
+		font-size: 1.3rem;
+	}
+}

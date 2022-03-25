@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/img/tomato.svg" type="image/icon type">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script defer src="js/script.js"></script>
+  <title>Pomodoro</title>
+</head>
+
+<body>
+  <div class="nav flex__parent">
+    <div class="nav nav-bar flex__parent">
+      <a href="#" class="logo btn__nav btn--logo">Pomo<span><strong>Doro</strong></span></a>
+      <a href="#" class="btn__nav btn--settings"><i class="fa fa-cog" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+  <div class="timer flex__parent">
+    <div class="timer__container flex__parent f_jc_aic for-mobile">
+      <a href="#" class="btn btn__timer btn--start">Start</a>
+      <div class="clock__container">
+        <div class="timer__clock">00 : 00</div>
+      </div>
+      <a href="#" class="btn btn__timer btn--stop">Stop</a>
+    </div>
+  </div>
+
+  <div class="overlay flex__parent f_jc_aic hidden">
+    <div class="modal__box">
+      <div class="modal__header modal__section">
+        <a href="#" class="btn btn--close"><i class="fas fa-times"></i></a>
+        <h1>Timer Settings</h1>
+
+      </div>
+      <div class="flex__parent modal__section modal__inputs">
+        <div>
+          <label class="input__label">Pomodoro</label>
+          <input type="number" min="1">
+        </div>
+        <div>
+          <label class="input__label">Short Break</label>
+          <input type="number" min="1">
+        </div>
+        <div>
+          <label class="input__label">Long Break</label>
+          <input type="number" min="1">
+        </div>
+      </div>
+      <div class="modal__section  modal__section--toggle">
+        <label class="">Auto-Start Break</label>
+        <ul class="toggle-list">
+          <li class="toggle-list-item">
+            <input class="toggle toggle-flat" id="cb" type="checkbox" />
+            <label class="toggle-btn" for="cb"></label>
+          </li>
+        </ul>
+      </div>
+      <div class="modal__section">
+        <a href="#" class="btn btn--confirm modal__btn">SAVE</a>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

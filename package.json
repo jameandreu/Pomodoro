@@ -1,0 +1,14 @@
+{
+	"name": "pomodoro",
+	"version": "1.0.0",
+	"description": "A Pomodoro app created by andr3u",
+	"main": "index.js",
+	"scripts": {
+		"compile:sass": "node-sass sass/main.scss css/style.css -w"
+	},
+	"author": "andr3u.codes",
+	"license": "ISC",
+	"devDependencies": {
+		"node-sass": "^6.0.0"
+	}
+}

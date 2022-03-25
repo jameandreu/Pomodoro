@@ -1,0 +1,21 @@
+.flex__parent {
+	display: flex;
+	// display: inline-block;
+}
+
+.f_jc_aic {
+	justify-content: center;
+	align-items: center;
+	// flex-direction: column;
+}
+
+.for-mobile {
+	@include breakpoint-down(medium) {
+		// flex-direction: column;
+		// justify-content: space-between;
+	}
+}
+
+.hidden {
+	visibility: hidden;
+}

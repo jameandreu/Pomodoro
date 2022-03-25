@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@font-face {
+	font-family: "Digital";
+	src: url("../../assets/fonts/digital.ttf") format("truetype");
+}
+
+body {
+	font-family: "Montserrat", sans-serif;
+	font-weight: 400;
+}
+.timer__clock {
+	font-family: "Digital", "Montserrat", sans-serif;
+	font-size: 3em;
+	font-weight: 100;
+}
