@@ -1,8 +1,9 @@
 body {
 	height: 100vh;
 	width: 100%;
+	flex-direction: column;
 	background-color: $color-tertiary-red;
-	// overflow-x: hidden;
+
 	& > a:last-child {
 		border-top-right-radius: 5px;
 	}
@@ -12,6 +13,9 @@ body {
 }
 .overlay {
 	position: fixed;
+	// justify-content: space-around;
+	// justify-content: center;
+	// align-items: center;
 	// display: none;
 	// opacity: 0;
 	width: 100vw;
@@ -25,6 +29,7 @@ body {
 	width: 100%;
 	min-width: 50%;
 	height: 10vh;
+	gap: 2rem;
 	justify-content: space-between;
 	padding-top: 2rem;
 }
@@ -36,8 +41,10 @@ body {
 
 	&__container {
 		width: 100%;
-		// margin: 3rem;
+		gap: 2rem;
+		flex: 1;
 		padding: 5rem;
+		flex-direction: column;
 	}
 
 	&__clock {
@@ -45,17 +52,32 @@ body {
 		text-align: center;
 		color: #fff;
 	}
+	&__controls--container {
+		height: 5rem;
+		gap: 2rem;
+
+		display: inline-flex;
+	}
 }
 
 .clock__container {
-	min-width: 25%;
-	height: 5rem;
+	min-width: 14rem;
+	justify-content: center;
+	align-items: center;
+	min-height: 10rem;
 	outline: 1px dotted #fff;
 	outline-offset: -1.5px;
+}
+.modal__box {
 }
 
 .btn__timer {
 	transition: all 200ms ease-in-out;
+
+	height: 3rem;
+	width: 6rem;
+	padding: 1rem;
+	font-size: 1rem;
 	&:hover {
 		opacity: 0.8;
 	}

@@ -29,9 +29,16 @@
 .flex__parent {
   display: flex; }
 
+.grid__parent {
+  display: grid; }
+
 .f_jc_aic {
   justify-content: center;
   align-items: center; }
+
+@media (max-width: 39.9375em) {
+  .overflowx-for-mobile {
+    overflow-x: scroll; } }
 
 .hidden {
   visibility: hidden; }
@@ -64,9 +71,6 @@ body {
   font-weight: 100; }
 
 .btn {
-  line-height: 5rem;
-  height: 5rem;
-  width: 15rem;
   color: #e4e6eb;
   background-color: #ffffff1a;
   text-align: center;
@@ -86,6 +90,7 @@ body {
 body {
   height: 100vh;
   width: 100%;
+  flex-direction: column;
   background-color: #db524d; }
   body > a:last-child {
     border-top-right-radius: 5px; }
@@ -104,6 +109,7 @@ body {
   width: 100%;
   min-width: 50%;
   height: 10vh;
+  gap: 2rem;
   justify-content: space-between;
   padding-top: 2rem; }
 
@@ -113,20 +119,33 @@ body {
   height: 90vh; }
   .timer__container {
     width: 100%;
-    padding: 5rem; }
+    gap: 2rem;
+    flex: 1;
+    padding: 5rem;
+    flex-direction: column; }
   .timer__clock {
     line-height: 4rem;
     text-align: center;
     color: #fff; }
+  .timer__controls--container {
+    height: 5rem;
+    gap: 2rem;
+    display: inline-flex; }
 
 .clock__container {
-  min-width: 25%;
-  height: 5rem;
+  min-width: 14rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 10rem;
   outline: 1px dotted #fff;
   outline-offset: -1.5px; }
 
 .btn__timer {
-  transition: all 200ms ease-in-out; }
+  transition: all 200ms ease-in-out;
+  height: 3rem;
+  width: 6rem;
+  padding: 1rem;
+  font-size: 1rem; }
   .btn__timer:hover {
     opacity: 0.8; }
 
@@ -169,6 +188,7 @@ body {
     display: block; }
 
 .modal__inputs {
+  gap: 1rem;
   justify-content: space-between;
   align-items: center; }
   .modal__inputs div {

@@ -11,7 +11,7 @@
   <title>Pomodoro</title>
 </head>
 
-<body>
+<body class="flex__parent">
   <div class="nav flex__parent">
     <div class="nav nav-bar flex__parent">
       <a href="#" class="logo btn__nav btn--logo">Pomo<span><strong>Doro</strong></span></a>
@@ -21,15 +21,18 @@
 
   <div class="timer flex__parent">
     <div class="timer__container flex__parent f_jc_aic for-mobile">
-      <a href="#" class="btn btn__timer btn--start">Start</a>
-      <div class="clock__container">
+      <div class="clock__container flex__parent">
         <div class="timer__clock">00 : 00</div>
       </div>
-      <a href="#" class="btn btn__timer btn--stop">Stop</a>
+      <div class="timer__controls--container">
+        <a href="#" class="btn btn__timer btn--start">Start</a>
+        <a href="#" class="btn btn__timer btn--stop">Stop</a>
+      </div>
+
     </div>
   </div>
 
-  <div class="overlay flex__parent f_jc_aic hidden">
+  <div class="overlay flex__parent f_jc_aic overflowx-for-mobile hidden">
     <div class="modal__box">
       <div class="modal__header modal__section">
         <a href="#" class="btn btn--close"><i class="fas fa-times"></i></a>
