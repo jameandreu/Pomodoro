@@ -19,8 +19,17 @@
     </div>
   </div>
 
+
+
   <div class="timer flex__parent">
-    <div class="timer__container flex__parent f_jc_aic for-mobile">
+    <div class="timer__container flex__parent f_aic for-mobile">
+      <div class="timer__status">
+
+        <a href="#" class="timer__status--states">Pomodoro</a>
+        <a href="#" class="timer__status--states">Short Break</a>
+        <a href="#" class="timer__status--states">Long Break</a>
+
+      </div>
       <div class="clock__container flex__parent">
         <div class="timer__clock">00 : 00</div>
       </div>
@@ -42,15 +51,15 @@
       <div class="flex__parent modal__section modal__inputs">
         <div>
           <label class="input__label">Pomodoro</label>
-          <input type="number" min="1">
+          <input id="input__pomodoro" class="input__pomodoro" type="number" min="1">
         </div>
         <div>
           <label class="input__label">Short Break</label>
-          <input type="number" min="1">
+          <input class="input__short-break" type="number" min="1">
         </div>
         <div>
           <label class="input__label">Long Break</label>
-          <input type="number" min="1">
+          <input class="input__long-break" type="number" min="1">
         </div>
       </div>
       <div class="modal__section  modal__section--toggle">

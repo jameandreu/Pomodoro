@@ -12,6 +12,15 @@
 	align-items: center;
 	// flex-direction: column;
 }
+.f_aic {
+	align-items: center;
+}
+
+.for-mobile {
+	@include breakpoint-down(medium) {
+		// display: block;
+	}
+}
 
 .overflowx-for-mobile {
 	@include breakpoint-down(small) {
