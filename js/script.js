@@ -4,10 +4,14 @@ const start = document.querySelector(".btn--start");
 const stop = document.querySelector(".btn--stop");
 const settings = document.querySelector(".btn--settings");
 const close = document.querySelector(".btn--close");
+const confirm = document.querySelector(".btn--confirm");
 const modal = document.querySelector(".modal__box");
 const overlay = document.querySelector(".overlay");
-const duration = 25 * 60000; // in ms
-
+let input_pomodoro = document.querySelector(".input__pomodoro").value;
+let input_shortBreak = document.querySelector(".input__short-break").value;
+let input_longBreak = document.querySelector(".input__long-break").value;
+let duration;
+// let duration = 1 * 60000; // in ms
 let secsLeftms;
 let endTime;
 let cio;
@@ -26,10 +30,18 @@ const countDown = function (endTime) {
 	// let mins = Math.floor(secsLeft / 60) - hours * 60;
 	let mins = Math.floor(secsLeft / 60);
 	let secs = secsLeft % 60;
-	timer.innerHTML = `${mins} : ${secs > 9 ? secs : "0" + secs}`;
-	// console.log(this);
+	if (secs >= 0) {
+		timer.innerHTML = `${mins > 9 ? mins : "0" + mins} : ${
+			secs > 9 ? secs : "0" + secs
+		}`;
+		console.log(secs);
+		console.log(mins);
+	} else {
+		clearInterval(cio);
+	}
 };
 const setEndTime = function () {
+	duration = input_pomodoro * 60000;
 	const now = Date.now();
 	endTime = now + duration;
 	countDown(endTime);
@@ -70,4 +82,12 @@ start.addEventListener("click", setEndTime);
 stop.addEventListener("click", function () {
 	clearInterval(cio);
 	timer.innerText = `00 : 00`;
+});
+
+confirm.addEventListener("click", function () {
+	input_pomodoro = document.querySelector(".input__pomodoro").value;
+	overlay.classList.toggle("hidden");
+	console.log(input_pomodoro);
+	console.log(input_shortBreak);
+	console.log(input_longBreak);
 });
