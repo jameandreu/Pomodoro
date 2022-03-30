@@ -16,9 +16,9 @@
 	align-items: center;
 }
 
-.for-mobile {
-	@include breakpoint-down(medium) {
-		// display: block;
+.states-for-mobile {
+	@include breakpoint-down(small) {
+		padding: 0.5rem;
 	}
 }
 
