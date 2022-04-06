@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="assets/img/tomato.svg" type="image/icon type">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <script defer src="js/script.js"></script>
   <title>Pomodoro</title>
 </head>
 
@@ -23,11 +22,11 @@
 
   <div class="timer flex__parent">
     <div class="timer__container flex__parent f_aic for-mobile">
-      <div class="timer__status">
+      <div class="timer__status" id="timer-modes">
 
-        <a href="#" class="timer__status--states states-for-mobile">Pomodoro</a>
-        <a href="#" class="timer__status--states states-for-mobile">Short Break</a>
-        <a href="#" class="timer__status--states states-for-mobile">Long Break</a>
+        <a href="#" class="timer__status--states states-for-mobile active" data-mode="pomodoro">Pomodoro</a>
+        <a href="#" class="timer__status--states states-for-mobile" data-mode="shortBreak">Short Break</a>
+        <a href="#" class="timer__status--states states-for-mobile" data-mode="longBreak">Long Break</a>
 
       </div>
       <div class="clock__container flex__parent">
@@ -79,5 +78,6 @@
   </div>
 
 </body>
+<script defer src="js/script.js"></script>
 
 </html>
