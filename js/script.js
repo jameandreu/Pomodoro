@@ -1,5 +1,5 @@
 "use strict";
-const timer = document.querySelector(".timer__clock");
+const clock = document.querySelector(".timer__clock");
 const start = document.querySelector(".btn--start");
 const stop = document.querySelector(".btn--stop");
 const settings = document.querySelector(".btn--settings");
@@ -7,15 +7,22 @@ const close = document.querySelector(".btn--close");
 const confirm = document.querySelector(".btn--confirm");
 const modal = document.querySelector(".modal__box");
 const overlay = document.querySelector(".overlay");
-let input_pomodoro = document.querySelector(".input__pomodoro").value;
-let input_shortBreak = document.querySelector(".input__short-break").value;
-let input_longBreak = document.querySelector(".input__long-break").value;
+let timer_mode = document.querySelector("#timer-modes");
+// let input_pomodoro = document.querySelector(".input__pomodoro").value;
+// let input_shortBreak = document.querySelector(".input__short-break").value;
+// let input_longBreak = document.querySelector(".input__long-break").value;
 let duration;
-// let duration = 1 * 60000; // in ms
 let secsLeftms;
 let endTime;
 let cio;
+let timer = {
+	pomodoro: document.querySelector(".input__pomodoro").value,
+	shortBreak: document.querySelector(".input__short-break").value,
+	longBreak: document.querySelector(".input__long-break").value,
+	longBreakInterval: 4,
+};
 
+//function for converting the input to time units then printing it to the element
 const countDown = function (endTime) {
 	// calculate how many milliseconds is left to reach endTime from now
 	secsLeftms = endTime - Date.now(); //secsLeftms = duration = 1500000
@@ -31,22 +38,41 @@ const countDown = function (endTime) {
 	let mins = Math.floor(secsLeft / 60);
 	let secs = secsLeft % 60;
 	if (secs >= 0) {
-		timer.innerHTML = `${mins > 9 ? mins : "0" + mins} : ${
-			secs > 9 ? secs : "0" + secs
-		}`;
-		console.log(secs);
-		console.log(mins);
+		clock.innerText = `${mins.toString().padStart(2, 0)} : ${secs
+			.toString()
+			.padStart(2, 0)}`;
+		// `${mins > 9 ? mins : "0" + mins} : ${
+		// 	secs > 9 ? secs : "0" + secs
+		// }`;
 	} else {
 		clearInterval(cio);
 	}
 };
+
+// function for setting the actual end time input * 60000 + date.now
 const setEndTime = function () {
-	duration = input_pomodoro * 60000;
+	duration = timer.pomodoro * 60000;
 	const now = Date.now();
 	endTime = now + duration;
+
 	countDown(endTime);
+
 	cio = setInterval(countDown, 1000, endTime);
 };
+
+const switchMode = function (mode) {
+	document
+		.querySelectorAll("a[data-mode]")
+		.forEach((e) => e.classList.remove("active"));
+	document.querySelector(`[data-mode='${mode}']`).classList.add("active");
+};
+
+timer_mode.addEventListener("click", function (e) {
+	const { mode } = e.target.dataset;
+	if (!mode) return;
+
+	switchMode(mode);
+});
 overlay.addEventListener("click", function (e) {
 	// this.classList.contains("fade-in")
 	// 	? this.classList.toggle("fade-in")
@@ -81,13 +107,11 @@ start.addEventListener("click", setEndTime);
 
 stop.addEventListener("click", function () {
 	clearInterval(cio);
-	timer.innerText = `00 : 00`;
+	clock.innerText = `00 : 00`;
 });
 
 confirm.addEventListener("click", function () {
-	input_pomodoro = document.querySelector(".input__pomodoro").value;
+	timer.pomodoro = document.querySelector(".input__pomodoro").value;
+	// convertUserInput(input_pomodoro);
 	overlay.classList.toggle("hidden");
-	console.log(input_pomodoro);
-	console.log(input_shortBreak);
-	console.log(input_longBreak);
 });
