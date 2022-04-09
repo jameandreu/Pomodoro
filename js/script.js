@@ -16,18 +16,39 @@ let secsLeftms;
 let endTime;
 let cio;
 let timer = {
-	pomodoro: document.querySelector(".input__pomodoro").value,
+	pomodoro: 0.1, //document.querySelector(".input__pomodoro").value,
 	shortBreak: document.querySelector(".input__short-break").value,
 	longBreak: document.querySelector(".input__long-break").value,
 	longBreakInterval: 4,
+	currentMode: "pomodoro",
+	modes: {
+		pomodoro: "pomodoro",
+		shortBreak: "shortBreak",
+		longBreak: "longBreak",
+	},
+	session: 0,
+	running: false,
 };
 
-//function for converting the input to time units then printing it to the element
+const convertInput = function (input) {
+	duration = input * 60000;
+	const now = Date.now();
+	endTime = now + duration;
+	secsLeftms = endTime - Date.now();
+	let secsLeft = Math.round(secsLeftms / 1000);
+	let mins = Math.floor(secsLeft / 60);
+	let secs = secsLeft % 60;
+	console.log(secs);
+};
+const startTimer = function () {};
+
+// function for converting the input to time units then printing it to the element
 const countDown = function (endTime) {
 	// calculate how many milliseconds is left to reach endTime from now
 	secsLeftms = endTime - Date.now(); //secsLeftms = duration = 1500000
 	//convert ms to secs
 	let secsLeft = Math.round(secsLeftms / 1000);
+	console.log(secsLeft);
 
 	// time format
 	//convert secs to hours
@@ -36,15 +57,17 @@ const countDown = function (endTime) {
 	// convert to mins
 	// let mins = Math.floor(secsLeft / 60) - hours * 60;
 	let mins = Math.floor(secsLeft / 60);
+
 	let secs = secsLeft % 60;
-	if (secs >= 0) {
+	if (secsLeft >= 0) {
 		clock.innerText = `${mins.toString().padStart(2, 0)} : ${secs
 			.toString()
 			.padStart(2, 0)}`;
-		// `${mins > 9 ? mins : "0" + mins} : ${
-		// 	secs > 9 ? secs : "0" + secs
-		// }`;
+		if (secsLeft === 0) {
+			switchMode("shortBreak");
+		}
 	} else {
+		console.log("done");
 		clearInterval(cio);
 	}
 };
@@ -54,13 +77,13 @@ const setEndTime = function () {
 	duration = timer.pomodoro * 60000;
 	const now = Date.now();
 	endTime = now + duration;
-
 	countDown(endTime);
 
 	cio = setInterval(countDown, 1000, endTime);
 };
 
 const switchMode = function (mode) {
+	timer.currentMode = mode;
 	document
 		.querySelectorAll("a[data-mode]")
 		.forEach((e) => e.classList.remove("active"));
