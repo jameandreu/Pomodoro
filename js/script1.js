@@ -1,4 +1,5 @@
-"use strict";
+("use strict");
+
 const clock = document.querySelector(".timer__clock");
 const start = document.querySelector(".btn--start");
 const stop = document.querySelector(".btn--stop");
@@ -9,13 +10,16 @@ const modal = document.querySelector(".modal__box");
 const overlay = document.querySelector(".overlay");
 let timer_mode = document.querySelector("#timer-modes");
 let cio;
-let timer = {
+let pomodoro = document.querySelector(".input__pomodoro");
+let shortBreak = document.querySelector(".input__short-break");
+let longBreak = document.querySelector(".input__long-break");
+const timer = {
 	endTime: 0,
 	totalSecsMs: 0,
 	totalSecsRemaining: 0,
-	pomodoro: 0.05, //document.querySelector(".input__pomodoro").value,
-	shortBreak: 0.07, // document.querySelector(".input__short-break").value,
-	longBreak: 0.1, //document.querySelector(".input__long-break").value,
+	pomodoro: pomodoro.value,
+	shortBreak: shortBreak.value,
+	longBreak: longBreak.value,
 	longBreakInterval: 4,
 	currentMode: "pomodoro",
 	minsRemaining: function () {
@@ -28,16 +32,18 @@ let timer = {
 	running: false,
 };
 
+/* converts input into into time units (e.g input: 1(min) **inputs can only be mins, no decimals then adds it or update the timer object**) */
 const convertInput = function (inputMins) {
-	timer.totalSecsMs = inputMins * 60000; // convert input to time unit in mins;
-	// timer.totalSecsMs = inputToTime / 1000; // convert to milliseconds then add it to timer object
+	timer.totalSecsMs = inputMins * 60000;
 };
+
 const switchMode = function (mode) {
 	timer.currentMode = mode;
 	document
 		.querySelectorAll("a[data-mode]")
 		.forEach((e) => e.classList.remove("active"));
 	document.querySelector(`[data-mode='${mode}']`).classList.add("active");
+	document.body.style.backgroundColor = `var(--${mode})`; //change background color
 };
 const updateCurrentMode = function (currentMode) {
 	console.log(currentMode);
@@ -51,7 +57,6 @@ const updateCurrentMode = function (currentMode) {
 			switchMode("longBreak");
 		}
 	} else {
-		// timer.currentMode === "shortBreak" || timer.currentMode === "longBreak";
 		switchMode("pomodoro");
 	}
 };
@@ -72,8 +77,9 @@ const countDown = function (endTime) {
 	console.log(timer.totalSecsRemaining);
 	console.log(timeLeft);
 };
-const startTimer = function () {
-	countDown(timer.endTime);
+const startTimer = function (endTime) {
+	endTime = timer.endTime;
+	countDown(endTime);
 	clock.innerText = `${timer
 		.minsRemaining()
 		.toString()
@@ -87,10 +93,14 @@ const updateTimer = function () {
 };
 
 timer_mode.addEventListener("click", function (e) {
+	/* this handles the timer mode from UI*/
 	const { mode } = e.target.dataset;
 	if (!mode) return;
 
 	switchMode(mode);
+	convertInput(timer[timer.currentMode]);
+	setEndTime(timer.totalSecsMs);
+	startTimer(timer.endTime);
 });
 overlay.addEventListener("click", function (e) {
 	if (this.classList.contains("fade-in")) {
@@ -112,7 +122,7 @@ start.addEventListener("click", function () {
 	convertInput(timer[timer.currentMode]);
 	setEndTime(timer.totalSecsMs);
 
-	cio = setInterval(startTimer, 1000, timer.endTime);
+	cio = setInterval(startTimer, 1000);
 });
 
 stop.addEventListener("click", function () {
@@ -122,5 +132,21 @@ stop.addEventListener("click", function () {
 
 confirm.addEventListener("click", function () {
 	timer.pomodoro = document.querySelector(".input__pomodoro").value;
+	convertInput(timer[timer.currentMode]);
+	setEndTime(timer.totalSecsMs);
+	startTimer(timer.endTime);
 	overlay.classList.toggle("hidden");
 });
+
+document.addEventListener(
+	"DOMContentLoaded",
+	function () {
+		pomodoro.value = 25;
+		shortBreak.value = 5;
+		longBreak.value = 10;
+		convertInput(timer[timer.currentMode]);
+		setEndTime(timer.totalSecsMs);
+		startTimer(timer.endTime);
+	},
+	false
+);

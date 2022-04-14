@@ -4,6 +4,7 @@ body {
 	flex-direction: column;
 	gap: 10vh;
 	background-color: $color-tertiary-red;
+	transition: background-color 300ms;
 
 	& > a:last-child {
 		border-top-right-radius: 5px;
@@ -51,7 +52,7 @@ body {
 			border-radius: 5px;
 			font-size: 0.875rem;
 			padding: 0.5rem 1rem;
-			background-color: $color-tertiary-red;
+			background-color: transparent;
 
 			&:hover {
 				background-color: $color-active;

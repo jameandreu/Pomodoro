@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+:root {
+  --pomodoro: #db524d;
+  --shortBreak: #5bbc78;
+  --longBreak: #70afa0; }
+
 @keyframes fade-in {
   0% {
     visibility: hidden;
@@ -59,7 +64,8 @@ body {
   width: 100%;
   flex-direction: column;
   gap: 10vh;
-  background-color: #db524d; }
+  background-color: #db524d;
+  transition: background-color 300ms; }
   body > a:last-child {
     border-top-right-radius: 5px; }
   body > a:first-child {
@@ -94,7 +100,7 @@ body {
       border-radius: 5px;
       font-size: 0.875rem;
       padding: 0.5rem 1rem;
-      background-color: #db524d; }
+      background-color: transparent; }
       .timer__status--states:hover {
         background-color: rgba(0, 0, 0, 0.15); }
   .timer__container {
