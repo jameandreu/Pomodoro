@@ -20,9 +20,11 @@ $color-active: rgba(0, 0, 0, 0.15);
 $pomodoro: #db524d;
 $shortBreak: #4c5a23;
 $longBreak: #e39533;
+$lightGray: #e4e6eb;
 
 :root {
 	--pomodoro: #db524d;
 	--shortBreak: #5bbc78;
 	--longBreak: #70afa0;
+	--progressFillWidth: 0;
 }

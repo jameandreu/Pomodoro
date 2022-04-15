@@ -8,6 +8,7 @@ const close = document.querySelector(".btn--close");
 const confirm = document.querySelector(".btn--confirm");
 const modal = document.querySelector(".modal__box");
 const overlay = document.querySelector(".overlay");
+const progressFill = document.querySelector(".timer__progress--fill");
 let timer_mode = document.querySelector("#timer-modes");
 let cio;
 let pomodoro = document.querySelector(".input__pomodoro");
@@ -36,6 +37,18 @@ const timer = {
 const convertInput = function (inputMins) {
 	timer.totalSecsMs = inputMins * 60000;
 };
+const runProgressBar = function () {
+	let computedStyle = getComputedStyle(progressFill);
+	let width =
+		parseFloat(computedStyle.getPropertyValue("--progressFillWidth")) || 0;
+
+	width += 100 / (timer.totalSecsMs / 1000);
+
+	progressFill.style.setProperty(`--progressFillWidth`, width);
+};
+const resetProgressBar = function () {
+	progressFill.style.setProperty(`--progressFillWidth`, 0);
+};
 
 const switchMode = function (mode) {
 	timer.currentMode = mode;
@@ -44,6 +57,7 @@ const switchMode = function (mode) {
 		.forEach((e) => e.classList.remove("active"));
 	document.querySelector(`[data-mode='${mode}']`).classList.add("active");
 	document.body.style.backgroundColor = `var(--${mode})`; //change background color
+	resetProgressBar();
 };
 const updateCurrentMode = function (currentMode) {
 	console.log(currentMode);
@@ -74,12 +88,15 @@ const countDown = function (endTime) {
 	}
 	timer.totalSecsRemaining = timeLeft;
 
-	console.log(timer.totalSecsRemaining);
+	// console.log(timer.totalSecsRemaining);
 	console.log(timeLeft);
+	console.log(timer.totalSecsMs / 1000);
 };
 const startTimer = function (endTime) {
 	endTime = timer.endTime;
 	countDown(endTime);
+	runProgressBar();
+
 	clock.innerText = `${timer
 		.minsRemaining()
 		.toString()
@@ -128,6 +145,7 @@ start.addEventListener("click", function () {
 stop.addEventListener("click", function () {
 	clearInterval(cio);
 	clock.innerText = `00 : 00`;
+	resetProgressBar();
 });
 
 confirm.addEventListener("click", function () {
