@@ -2,7 +2,8 @@ body {
 	height: 100vh;
 	width: 100%;
 	flex-direction: column;
-	gap: 10vh;
+
+	// gap: clamp(1vh, 1.5vh, 3vh);
 	background-color: $color-tertiary-red;
 	transition: background-color 300ms;
 
@@ -26,22 +27,46 @@ body {
 	left: 0;
 	background-color: rgba(0, 0, 0, 0.5);
 }
-
-.nav-bar {
-	width: 100%;
-	min-width: 50%;
-	height: 10vh;
-	gap: 2rem;
-	justify-content: space-between;
-	padding-top: 2rem;
+.nav {
+	// flex-direction: column;
+	height: auto;
+	&-bar {
+		width: 100%;
+		min-width: 50%;
+		height: auto;
+		// min-height: 10vh;
+		gap: 2rem;
+		justify-content: space-between;
+		padding-top: 2rem;
+	}
 }
 
 .timer {
-	width: 100%;
+	// width: 50%;
 	flex-direction: column;
 	align-items: center;
 	min-width: 50%;
 	height: 90vh;
+	margin: 0 auto;
+
+	&__progress {
+		// width: 90%;
+		min-width: 17.125rem;
+		height: 0.2rem;
+		// margin: 0 auto;
+		margin-top: 0.5rem;
+		margin-left: 3rem;
+		margin-right: 3rem;
+		margin-bottom: 2rem;
+
+		background-color: $color-active;
+
+		&--fill {
+			width: calc(var(--progressFillWidth) * 1%);
+			height: inherit;
+			background-color: $lightGray;
+		}
+	}
 
 	&__status {
 		// min-width: 224px;
@@ -73,7 +98,7 @@ body {
 	&__clock {
 		line-height: 4rem;
 		text-align: center;
-		color: #fff;
+		color: $lightGray;
 	}
 	&__controls--container {
 		height: 5rem;
