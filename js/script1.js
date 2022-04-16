@@ -37,15 +37,15 @@ const timer = {
 const convertInput = function (inputMins) {
 	timer.totalSecsMs = inputMins * 60000;
 };
+
 const runProgressBar = function () {
 	let computedStyle = getComputedStyle(progressFill);
 	let width =
 		parseFloat(computedStyle.getPropertyValue("--progressFillWidth")) || 0;
-
 	width += 100 / (timer.totalSecsMs / 1000);
-
 	progressFill.style.setProperty(`--progressFillWidth`, width);
 };
+
 const resetProgressBar = function () {
 	progressFill.style.setProperty(`--progressFillWidth`, 0);
 };
@@ -57,6 +57,7 @@ const switchMode = function (mode) {
 		.forEach((e) => e.classList.remove("active"));
 	document.querySelector(`[data-mode='${mode}']`).classList.add("active");
 	document.body.style.backgroundColor = `var(--${mode})`; //change background color
+	initializeClock();
 	resetProgressBar();
 };
 const updateCurrentMode = function (currentMode) {
@@ -69,6 +70,7 @@ const updateCurrentMode = function (currentMode) {
 		} else {
 			console.log(`session: ${timer.session}`);
 			switchMode("longBreak");
+			timer.session = 0;
 		}
 	} else {
 		switchMode("pomodoro");
@@ -88,14 +90,12 @@ const countDown = function (endTime) {
 	}
 	timer.totalSecsRemaining = timeLeft;
 
-	// console.log(timer.totalSecsRemaining);
-	console.log(timeLeft);
-	console.log(timer.totalSecsMs / 1000);
+	// console.log(timeLeft);console.log(timer.totalSecsMs / 1000);
 };
 const startTimer = function (endTime) {
 	endTime = timer.endTime;
-	countDown(endTime);
 	runProgressBar();
+	countDown(endTime);
 
 	clock.innerText = `${timer
 		.minsRemaining()
@@ -108,6 +108,16 @@ const updateTimer = function () {
 	clock.textContent = "00:00";
 	updateCurrentMode(timer.currentMode);
 };
+const initializeClock = function () {
+	convertInput(timer[timer.currentMode]);
+	setEndTime(timer.totalSecsMs);
+	countDown(timer.endTime);
+	resetProgressBar();
+	clock.innerText = `${timer
+		.minsRemaining()
+		.toString()
+		.padStart(2, 0)} : ${timer.secsRemaining().toString().padStart(2, 0)}`;
+};
 
 timer_mode.addEventListener("click", function (e) {
 	/* this handles the timer mode from UI*/
@@ -115,9 +125,7 @@ timer_mode.addEventListener("click", function (e) {
 	if (!mode) return;
 
 	switchMode(mode);
-	convertInput(timer[timer.currentMode]);
-	setEndTime(timer.totalSecsMs);
-	startTimer(timer.endTime);
+	initializeClock();
 });
 overlay.addEventListener("click", function (e) {
 	if (this.classList.contains("fade-in")) {
@@ -159,12 +167,10 @@ confirm.addEventListener("click", function () {
 document.addEventListener(
 	"DOMContentLoaded",
 	function () {
-		pomodoro.value = 25;
-		shortBreak.value = 5;
-		longBreak.value = 10;
-		convertInput(timer[timer.currentMode]);
-		setEndTime(timer.totalSecsMs);
-		startTimer(timer.endTime);
+		pomodoro.value = 0.05;
+		shortBreak.value = 0.05;
+		longBreak.value = 0.05;
+		initializeClock();
 	},
 	false
 );
