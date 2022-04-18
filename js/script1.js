@@ -1,6 +1,7 @@
 ("use strict");
 
 const clock = document.querySelector(".timer__clock");
+const timer_controls = document.querySelector(".timer__controls--container");
 const start = document.querySelector(".btn--start");
 const stop = document.querySelector(".btn--stop");
 const settings = document.querySelector(".btn--settings");
@@ -9,6 +10,7 @@ const confirm = document.querySelector(".btn--confirm");
 const modal = document.querySelector(".modal__box");
 const overlay = document.querySelector(".overlay");
 const progressFill = document.querySelector(".timer__progress--fill");
+let progressFillArea;
 let timer_mode = document.querySelector("#timer-modes");
 let cio;
 let pomodoro = document.querySelector(".input__pomodoro");
@@ -18,9 +20,9 @@ const timer = {
 	endTime: 0,
 	totalSecsMs: 0,
 	totalSecsRemaining: 0,
-	pomodoro: pomodoro.value,
-	shortBreak: shortBreak.value,
-	longBreak: longBreak.value,
+	pomodoro: 0,
+	shortBreak: 0,
+	longBreak: 0,
 	longBreakInterval: 4,
 	currentMode: "pomodoro",
 	minsRemaining: function () {
@@ -30,7 +32,8 @@ const timer = {
 		return this.totalSecsRemaining % 60;
 	},
 	session: 0,
-	running: false,
+	isRunning: false,
+	isPaused: false,
 };
 
 /* converts input into into time units (e.g input: 1(min) **inputs can only be mins, no decimals then adds it or update the timer object**) */
@@ -42,7 +45,7 @@ const runProgressBar = function () {
 	let computedStyle = getComputedStyle(progressFill);
 	let width =
 		parseFloat(computedStyle.getPropertyValue("--progressFillWidth")) || 0;
-	width += 100 / (timer.totalSecsMs / 1000);
+	width += 100 / (progressFillArea / 1000);
 	progressFill.style.setProperty(`--progressFillWidth`, width);
 };
 
@@ -56,7 +59,7 @@ const switchMode = function (mode) {
 		.querySelectorAll("a[data-mode]")
 		.forEach((e) => e.classList.remove("active"));
 	document.querySelector(`[data-mode='${mode}']`).classList.add("active");
-	document.body.style.backgroundColor = `var(--${mode})`; //change background color
+	document.body.style.backgroundColor = `var(--${mode})`;
 	initializeClock();
 	resetProgressBar();
 };
@@ -83,20 +86,27 @@ const setEndTime = function (totalSecsMs) {
 
 const countDown = function (endTime) {
 	let timeLeft = Math.round((endTime - Date.now()) / 1000);
+
 	if (timeLeft < 0) {
+		timer.isRunning = false;
 		clearInterval(cio);
 		updateTimer();
 		return;
 	}
 	timer.totalSecsRemaining = timeLeft;
-
-	// console.log(timeLeft);console.log(timer.totalSecsMs / 1000);
+};
+const resumeTimer = function (timeLeft) {
+	let m = timeLeft / 60;
+	convertInput(m);
+	setEndTime(timer.totalSecsMs);
+	// startTimer(timer.endTime);
+	cio = setInterval(startTimer, 1000);
 };
 const startTimer = function (endTime) {
 	endTime = timer.endTime;
+	timer.isRunning = true;
 	runProgressBar();
 	countDown(endTime);
-
 	clock.innerText = `${timer
 		.minsRemaining()
 		.toString()
@@ -109,7 +119,9 @@ const updateTimer = function () {
 	updateCurrentMode(timer.currentMode);
 };
 const initializeClock = function () {
+	timer.isRunning = false;
 	convertInput(timer[timer.currentMode]);
+	progressFillArea = timer.totalSecsMs;
 	setEndTime(timer.totalSecsMs);
 	countDown(timer.endTime);
 	resetProgressBar();
@@ -133,6 +145,54 @@ overlay.addEventListener("click", function (e) {
 		this.classList.toggle("fade-out");
 	}
 });
+
+timer_controls.addEventListener("click", function (e) {
+	const targetClasses = e.target.classList;
+	// let btn;
+	[, , button] = targetClasses;
+	if (!targetClasses.contains("btn")) return;
+
+	switch (button) {
+		case "btn--start":
+			if (!timer.isRunning && timer.isPaused) {
+				resumeTimer(timer.totalSecsRemaining);
+				timer.isPaused = false;
+			} else if (!timer.isRunning) {
+				progressFillArea = timer.totalSecsMs;
+				convertInput(timer[timer.currentMode]);
+				setEndTime(timer.totalSecsMs);
+				countDown(timer.endTime);
+				cio = setInterval(startTimer, 1000);
+			}
+			break;
+		case "btn--stop":
+			clearInterval(cio);
+			initializeClock();
+			timer.isRunning = false;
+			// clock.innerText = `00 : 00`;
+			resetProgressBar();
+			break;
+		case "btn--next":
+			break;
+		case "btn--pause":
+			clearInterval(cio);
+			timer.isRunning = false;
+			timer.isPaused = true;
+			break;
+
+		default:
+			break;
+	}
+
+	// if (targetClasses.contains("btn--play")) {
+	// 	targetClasses.toggle("btn--play");
+	// 	targetClasses.toggle("btn--pause");
+	// } else {
+	// 	targetClasses.toggle("btn--pause");
+	// 	targetClasses.toggle("btn--play");
+	// }
+});
+
 settings.addEventListener("click", function () {
 	overlay.classList.toggle("hidden");
 });
@@ -143,33 +203,36 @@ close.addEventListener("click", function () {
 modal.addEventListener("click", function (e) {
 	e.stopPropagation();
 });
-start.addEventListener("click", function () {
-	convertInput(timer[timer.currentMode]);
-	setEndTime(timer.totalSecsMs);
+// start.addEventListener("click", function () {
+// 	if (timer.isRunning) return;
+// 	convertInput(timer[timer.currentMode]);
+// 	setEndTime(timer.totalSecsMs);
 
-	cio = setInterval(startTimer, 1000);
-});
+// 	cio = setInterval(startTimer, 1000);
+// });
 
-stop.addEventListener("click", function () {
-	clearInterval(cio);
-	clock.innerText = `00 : 00`;
-	resetProgressBar();
-});
+// stop.addEventListener("click", function () {
+// 	clearInterval(cio);
+// 	initializeClock();
+// 	// clock.innerText = `00 : 00`;
+// 	resetProgressBar();
+// });
 
 confirm.addEventListener("click", function () {
-	timer.pomodoro = document.querySelector(".input__pomodoro").value;
-	convertInput(timer[timer.currentMode]);
-	setEndTime(timer.totalSecsMs);
-	startTimer(timer.endTime);
+	timer.pomodoro = pomodoro.value;
+	timer.shortBreak = shortBreak.value;
+	timer.longBreak = longBreak.value;
+	clearInterval(cio);
+	initializeClock();
 	overlay.classList.toggle("hidden");
 });
 
 document.addEventListener(
 	"DOMContentLoaded",
 	function () {
-		pomodoro.value = 0.05;
-		shortBreak.value = 0.05;
-		longBreak.value = 0.05;
+		timer.pomodoro = 25;
+		timer.shortBreak = 5;
+		timer.longBreak = 15;
 		initializeClock();
 	},
 	false
