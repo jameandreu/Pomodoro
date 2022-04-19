@@ -94,6 +94,12 @@ const countDown = function (endTime) {
 		return;
 	}
 	timer.totalSecsRemaining = timeLeft;
+	const msg =
+		timer.currentMode === "pomodoro" ? "Focus!" : "Keep Calm and Take a Break.";
+	document.title = `${timer.minsRemaining().toString().padStart(2, 0)} : ${timer
+		.secsRemaining()
+		.toString()
+		.padStart(2, 0)} - ${msg}`;
 };
 const resumeTimer = function (timeLeft) {
 	convertInput(timeLeft / 60);
