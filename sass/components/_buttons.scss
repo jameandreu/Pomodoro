@@ -14,7 +14,8 @@
 	}
 
 	&__timer {
-		transition: all 200ms ease-in-out;
+		transition: color 200ms ease-in-out, background 200ms ease-in-out,
+			margin 75ms ease-in-out;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -22,16 +23,19 @@
 		cursor: pointer;
 		height: 3rem;
 		padding: 1rem;
-		font-size: 1rem;
+		font-size: 2rem;
 		box-shadow: 0.5px 0.5px 2px $color-active, -1px -0.5px 2px $color-active;
 		&:hover {
 			background-color: $color-active;
+		}
+		&:active {
+			margin-top: 3px;
 		}
 	}
 
 	&__nav {
 		color: $color-secondary-light_gray;
-		font-size: 1.8rem;
+		font-size: 2rem;
 	}
 	&--settings {
 		margin-right: 3rem;

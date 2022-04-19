@@ -96,8 +96,7 @@ const countDown = function (endTime) {
 	timer.totalSecsRemaining = timeLeft;
 };
 const resumeTimer = function (timeLeft) {
-	let m = timeLeft / 60;
-	convertInput(m);
+	convertInput(timeLeft / 60);
 	setEndTime(timer.totalSecsMs);
 	// startTimer(timer.endTime);
 	cio = setInterval(startTimer, 1000);
@@ -119,7 +118,9 @@ const updateTimer = function () {
 	updateCurrentMode(timer.currentMode);
 };
 const initializeClock = function () {
+	clearInterval(cio);
 	timer.isRunning = false;
+	timer.isPaused = false;
 	convertInput(timer[timer.currentMode]);
 	progressFillArea = timer.totalSecsMs;
 	setEndTime(timer.totalSecsMs);
@@ -157,27 +158,39 @@ timer_controls.addEventListener("click", function (e) {
 			if (!timer.isRunning && timer.isPaused) {
 				resumeTimer(timer.totalSecsRemaining);
 				timer.isPaused = false;
-			} else if (!timer.isRunning) {
+				// console.log("From pause isPaused:", timer.isPaused);
+				// console.log("From pause isRunning:", timer.isRunning);
+			} else if (!timer.isRunning && !timer.isPaused) {
 				progressFillArea = timer.totalSecsMs;
 				convertInput(timer[timer.currentMode]);
 				setEndTime(timer.totalSecsMs);
 				countDown(timer.endTime);
 				cio = setInterval(startTimer, 1000);
+				// console.log("start  isPaused:", timer.isPaused);
+				// console.log("start isRunning:", timer.isRunning);
 			}
 			break;
 		case "btn--stop":
-			clearInterval(cio);
 			initializeClock();
-			timer.isRunning = false;
+			timer.isPaused = false;
 			// clock.innerText = `00 : 00`;
+			// console.log("stop isPaused:", timer.isPaused);
+			// console.log("stop isRunning:", timer.isRunning);
 			resetProgressBar();
 			break;
 		case "btn--next":
+			initializeClock();
+			// console.log("Next isPaused:", timer.isPaused);
+			// console.log("Next isRunning:", timer.isRunning);
+			resetProgressBar();
+			updateTimer(timer.currentMode);
 			break;
 		case "btn--pause":
 			clearInterval(cio);
 			timer.isRunning = false;
 			timer.isPaused = true;
+			// console.log("Pause isPaused:", timer.isPaused);
+			// console.log("Pause isRunning:", timer.isRunning);
 			break;
 
 		default:
