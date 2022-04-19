@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 :root {
   --pomodoro: #db524d;
-  --shortBreak: #5bbc78;
+  --shortBreak: #54b370;
   --longBreak: #70afa0;
   --progressFillWidth: 0; }
 
@@ -66,10 +66,6 @@ body {
   flex-direction: column;
   background-color: #db524d;
   transition: background-color 300ms; }
-  body > a:last-child {
-    border-top-right-radius: 5px; }
-  body > a:first-child {
-    border-bottom-left-radius: 5px; }
 
 .overlay {
   position: fixed;
@@ -96,7 +92,6 @@ body {
   height: 90vh;
   margin: 0 auto; }
   .timer__progress {
-    min-width: 17.125rem;
     height: 0.2rem;
     margin-top: 0.5rem;
     margin-left: 3rem;
@@ -138,15 +133,6 @@ body {
   min-height: 10rem;
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='white' stroke-width='3' stroke-dasharray='14%2c 8' stroke-dashoffset='17' stroke-linecap='round'/%3e%3c/svg%3e");
   border-radius: 16px; }
-
-.btn__timer {
-  transition: all 200ms ease-in-out;
-  height: 3rem;
-  width: 6rem;
-  padding: 1rem;
-  font-size: 1rem; }
-  .btn__timer:hover {
-    background-color: rgba(0, 0, 0, 0.15); }
 
 .modal__box {
   width: 30rem;
@@ -219,12 +205,35 @@ body {
   font-size: 1.3rem; }
 
 .btn {
-  color: #e4e6eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #ffffff1a;
-  text-align: center; }
+  color: #e4e6eb; }
+  .btn__wrap {
+    display: inline-flex;
+    align-items: center;
+    width: 2.5rem;
+    height: 3rem;
+    z-index: -1; }
+  .btn__timer {
+    transition: color 200ms ease-in-out, background 200ms ease-in-out, margin 75ms ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;
+    cursor: pointer;
+    height: 3rem;
+    padding: 1rem;
+    font-size: 2rem;
+    box-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.15), -1px -0.5px 2px rgba(0, 0, 0, 0.15); }
+    .btn__timer:hover {
+      background-color: rgba(0, 0, 0, 0.15); }
+    .btn__timer:active {
+      margin-top: 3px; }
   .btn__nav {
     color: #e4e6eb;
-    font-size: 1.8rem; }
+    font-size: 2rem; }
   .btn--settings {
     margin-right: 3rem; }
   .btn--logo {

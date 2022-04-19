@@ -4,9 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="assets/img/tomato.svg" type="image/icon type">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
   <title>Pomodoro</title>
 </head>
 
@@ -14,7 +18,7 @@
   <div class="nav flex__parent">
     <div class="nav nav-bar flex__parent">
       <a href="#" class="logo btn__nav btn--logo">Pomo<span><strong>Doro</strong></span></a>
-      <a href="#" class="btn__nav btn--settings"><i class="fa fa-cog" aria-hidden="true"></i></a>
+      <a href="#" class="btn__nav btn--settings material-icons md-light">settings</a>
     </div>
   </div>
   <!-- <progress class="timer__progress" value="0"></progress> -->
@@ -35,8 +39,18 @@
         <div class="timer__clock">00 : 00</div>
       </div>
       <div class="timer__controls--container">
-        <a href="#" class="btn btn__timer btn--start">Start</a>
-        <a href="#" class="btn btn__timer btn--stop">Stop</a>
+        <!-- <a href="#" class="btnn btn__timer btn--play">
+          <div class="btn__wrap">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+          </div>
+        </a> -->
+        <a href="#" class="btn btn__timer btn--start material-icons md-light">play_arrow</a>
+        <a href="#" class="btn btn__timer btn--pause material-icons md-light">pause</a>
+        <a href="#" class="btn btn__timer btn--stop material-icons md-light">restart_alt</a>
+        <a href="#" class="btn btn__timer btn--next material-icons md-light">skip_next</a>
+        <!-- <div class="btnn btn__timer btn--next"><i class="fa-solid fa-forward-step"></i></div> -->
       </div>
 
     </div>
@@ -52,15 +66,15 @@
       <div class="flex__parent modal__section modal__inputs">
         <div>
           <label class="input__label">Pomodoro</label>
-          <input class="input__pomodoro" type="number" min="1" value="1">
+          <input class="input__pomodoro" type="number" min="1" value="25">
         </div>
         <div>
           <label class="input__label">Short Break</label>
-          <input class="input__short-break" type="number" min="1">
+          <input class="input__short-break" type="number" min="1" value="5">
         </div>
         <div>
           <label class="input__label">Long Break</label>
-          <input class="input__long-break" type="number" min="1">
+          <input class="input__long-break" type="number" min="1" value="15">
         </div>
       </div>
       <div class="modal__section  modal__section--toggle">
