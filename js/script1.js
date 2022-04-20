@@ -104,7 +104,7 @@ const countDown = function (endTime) {
 const resumeTimer = function (timeLeft) {
 	convertInput(timeLeft / 60);
 	setEndTime(timer.totalSecsMs);
-	// startTimer(timer.endTime);
+
 	cio = setInterval(startTimer, 1000);
 };
 const startTimer = function (endTime) {
@@ -139,7 +139,6 @@ const initializeClock = function () {
 };
 
 timer_mode.addEventListener("click", function (e) {
-	/* this handles the timer mode from UI*/
 	const { mode } = e.target.dataset;
 	if (!mode) return;
 
@@ -155,7 +154,7 @@ overlay.addEventListener("click", function (e) {
 
 timer_controls.addEventListener("click", function (e) {
 	const targetClasses = e.target.classList;
-	// let btn;
+
 	[, , button] = targetClasses;
 	if (!targetClasses.contains("btn")) return;
 
@@ -164,52 +163,37 @@ timer_controls.addEventListener("click", function (e) {
 			if (!timer.isRunning && timer.isPaused) {
 				resumeTimer(timer.totalSecsRemaining);
 				timer.isPaused = false;
-				// console.log("From pause isPaused:", timer.isPaused);
-				// console.log("From pause isRunning:", timer.isRunning);
 			} else if (!timer.isRunning && !timer.isPaused) {
 				progressFillArea = timer.totalSecsMs;
 				convertInput(timer[timer.currentMode]);
 				setEndTime(timer.totalSecsMs);
 				countDown(timer.endTime);
 				cio = setInterval(startTimer, 1000);
-				// console.log("start  isPaused:", timer.isPaused);
-				// console.log("start isRunning:", timer.isRunning);
+			} else {
+				console.log("Don't press play while the timer is running");
 			}
 			break;
 		case "btn--stop":
 			initializeClock();
 			timer.isPaused = false;
-			// clock.innerText = `00 : 00`;
-			// console.log("stop isPaused:", timer.isPaused);
-			// console.log("stop isRunning:", timer.isRunning);
 			resetProgressBar();
 			break;
+
 		case "btn--next":
 			initializeClock();
-			// console.log("Next isPaused:", timer.isPaused);
-			// console.log("Next isRunning:", timer.isRunning);
 			resetProgressBar();
 			updateTimer(timer.currentMode);
 			break;
+
 		case "btn--pause":
 			clearInterval(cio);
 			timer.isRunning = false;
 			timer.isPaused = true;
-			// console.log("Pause isPaused:", timer.isPaused);
-			// console.log("Pause isRunning:", timer.isRunning);
 			break;
 
 		default:
 			break;
 	}
-
-	// if (targetClasses.contains("btn--play")) {
-	// 	targetClasses.toggle("btn--play");
-	// 	targetClasses.toggle("btn--pause");
-	// } else {
-	// 	targetClasses.toggle("btn--pause");
-	// 	targetClasses.toggle("btn--play");
-	// }
 });
 
 settings.addEventListener("click", function () {
@@ -222,20 +206,6 @@ close.addEventListener("click", function () {
 modal.addEventListener("click", function (e) {
 	e.stopPropagation();
 });
-// start.addEventListener("click", function () {
-// 	if (timer.isRunning) return;
-// 	convertInput(timer[timer.currentMode]);
-// 	setEndTime(timer.totalSecsMs);
-
-// 	cio = setInterval(startTimer, 1000);
-// });
-
-// stop.addEventListener("click", function () {
-// 	clearInterval(cio);
-// 	initializeClock();
-// 	// clock.innerText = `00 : 00`;
-// 	resetProgressBar();
-// });
 
 confirm.addEventListener("click", function () {
 	timer.pomodoro = pomodoro.value;
