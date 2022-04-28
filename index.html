@@ -4,11 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="assets/img/tomato.svg" type="image/icon type">
-
+  <script defer src="js/script1.js"></script>
 
 
   <title>Pomodoro</title>
@@ -21,7 +22,7 @@
       <a href="#" class="btn__nav btn--settings material-icons md-light">settings</a>
     </div>
   </div>
-  <!-- <progress class="timer__progress" value="0"></progress> -->
+
   <div class="timer__progress">
     <div class="timer__progress--fill"></div>
   </div>
@@ -39,19 +40,46 @@
         <div class="timer__clock">00 : 00</div>
       </div>
       <div class="timer__controls--container">
-        <!-- <a href="#" class="btnn btn__timer btn--play">
-          <div class="btn__wrap">
-            <span class="bar bar-1"></span>
-            <span class="bar bar-2"></span>
-            <span class="bar bar-3"></span>
-          </div>
-        </a> -->
+
         <a href="#" class="btn btn__timer btn--start material-icons md-light">play_arrow</a>
         <a href="#" class="btn btn__timer btn--pause material-icons md-light">pause</a>
         <a href="#" class="btn btn__timer btn--stop material-icons md-light">restart_alt</a>
         <a href="#" class="btn btn__timer btn--next material-icons md-light">skip_next</a>
-        <!-- <div class="btnn btn__timer btn--next"><i class="fa-solid fa-forward-step"></i></div> -->
+
       </div>
+
+    </div>
+  </div>
+
+  <div class="todo__container">
+    <div class="todo__newToDo--container flex__parent">
+      <input type="text" id="todo__add--input" class="todo__newToDo--input">
+      <div class="todo__newToDo--add">
+        <a id="todo__add--btn" class="material-icons">
+          add_circle
+        </a>
+      </div>
+    </div>
+
+    <div class="todo__list">
+      <!-- <div class="todo__list--item flex__parent">
+        <input type="checkbox" class="todo__list--item-checkBox">
+        <div class="todo__list--item-text">Lorem, Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati,
+          porro.</div>
+      </div> -->
+      <!-- <div class="todo__list--item flex__parent">
+        <input type="checkbox" class="todo__list--item-checkBox">
+        <div class="todo__list--item-text"></div>
+        <div class="todo__list--item-controls flex__parent">
+          <a class="material-icons">drag_handle</a>
+          <a class="material-icons">edit</a>
+          <a class="material-icons">delete</a>
+        </div>
+
+      </div> -->
+
+
+
 
     </div>
   </div>
@@ -94,6 +122,6 @@
   </div>
 
 </body>
-<script defer src="js/script1.js"></script>
+
 
 </html>

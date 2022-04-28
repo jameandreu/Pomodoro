@@ -10,6 +10,8 @@ const confirm = document.querySelector(".btn--confirm");
 const modal = document.querySelector(".modal__box");
 const overlay = document.querySelector(".overlay");
 const progressFill = document.querySelector(".timer__progress--fill");
+const btnSound = new Audio("../assets/sounds/button-sound.mp3");
+const alarmSound = new Audio("../assets/sounds/alarm-wood.mp3");
 let progressFillArea;
 let timer_mode = document.querySelector("#timer-modes");
 let cio;
@@ -86,13 +88,6 @@ const setEndTime = function (totalSecsMs) {
 
 const countDown = function (endTime) {
 	let timeLeft = Math.round((endTime - Date.now()) / 1000);
-
-	if (timeLeft < 0) {
-		timer.isRunning = false;
-		clearInterval(cio);
-		updateTimer();
-		return;
-	}
 	timer.totalSecsRemaining = timeLeft;
 	const msg =
 		timer.currentMode === "pomodoro" ? "Focus!" : "Keep Calm and Take a Break.";
@@ -100,6 +95,13 @@ const countDown = function (endTime) {
 		.secsRemaining()
 		.toString()
 		.padStart(2, 0)} - ${msg}`;
+
+	if (timeLeft < 0) {
+		timer.isRunning = false;
+		clearInterval(cio);
+		updateTimer();
+		alarmSound.play();
+	}
 };
 const resumeTimer = function (timeLeft) {
 	convertInput(timeLeft / 60);
@@ -156,8 +158,8 @@ timer_controls.addEventListener("click", function (e) {
 	const targetClasses = e.target.classList;
 
 	[, , button] = targetClasses;
-	if (!targetClasses.contains("btn")) return;
-
+	// if (!targetClasses.contains("btn")) return;
+	!targetClasses.contains("btn") ? false : btnSound.play();
 	switch (button) {
 		case "btn--start":
 			if (!timer.isRunning && timer.isPaused) {
@@ -226,3 +228,61 @@ document.addEventListener(
 	},
 	false
 );
+
+///////////////////////////
+// OOP approach TODO App //
+///////////////////////////
+const input = document.getElementById("todo__add--input");
+const btnAdd = document.getElementById("todo__add--btn");
+const todoListDiv = document.querySelector(".todo__list");
+
+class TodoItem {
+	constructor(id, content) {
+		this.id = id;
+		this.content = content;
+		this.done = false;
+	}
+}
+
+class TodoApp {
+	#todos = [];
+	constructor() {
+		btnAdd.addEventListener("click", this._newTodo.bind(this));
+	}
+
+	_renderTodo(todo) {
+		let html = `<div class="todo__list--item flex__parent">
+		<input type="checkbox" class="todo__list--item-checkBox">
+		<div class="todo__list--item-text">${todo.content}</div>
+	</div>`;
+
+		todoListDiv.insertAdjacentHTML("afterbegin", html);
+	}
+	_reset() {
+		input.value = "";
+	}
+	_newTodo() {
+		let content = input.value;
+		let id = Date.now() + "".slice(-6);
+		let todo;
+		// console.log(this.#todos);
+
+		//validation here before creating todoitem object
+		if (content === "") {
+			return;
+		}
+		todo = new TodoItem(id, content);
+
+		//add new todo to todos array
+		this.#todos.push(todo);
+		console.log(this.#todos);
+
+		//render todo div
+		this._renderTodo(todo);
+
+		//reset input field
+		this._reset();
+	}
+}
+
+const todoapp = new TodoApp();
