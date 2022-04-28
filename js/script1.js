@@ -228,3 +228,61 @@ document.addEventListener(
 	},
 	false
 );
+
+///////////////////////////
+// OOP approach TODO App //
+///////////////////////////
+const input = document.getElementById("todo__add--input");
+const btnAdd = document.getElementById("todo__add--btn");
+const todoListDiv = document.querySelector(".todo__list");
+
+class TodoItem {
+	constructor(id, content) {
+		this.id = id;
+		this.content = content;
+		this.done = false;
+	}
+}
+
+class TodoApp {
+	#todos = [];
+	constructor() {
+		btnAdd.addEventListener("click", this._newTodo.bind(this));
+	}
+
+	_renderTodo(todo) {
+		let html = `<div class="todo__list--item flex__parent">
+		<input type="checkbox" class="todo__list--item-checkBox">
+		<div class="todo__list--item-text">${todo.content}</div>
+	</div>`;
+
+		todoListDiv.insertAdjacentHTML("afterbegin", html);
+	}
+	_reset() {
+		input.value = "";
+	}
+	_newTodo() {
+		let content = input.value;
+		let id = Date.now() + "".slice(-6);
+		let todo;
+		// console.log(this.#todos);
+
+		//validation here before creating todoitem object
+		if (content === "") {
+			return;
+		}
+		todo = new TodoItem(id, content);
+
+		//add new todo to todos array
+		this.#todos.push(todo);
+		console.log(this.#todos);
+
+		//render todo div
+		this._renderTodo(todo);
+
+		//reset input field
+		this._reset();
+	}
+}
+
+const todoapp = new TodoApp();
