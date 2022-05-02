@@ -62,6 +62,8 @@ const switchMode = function (mode) {
 		.forEach((e) => e.classList.remove("active"));
 	document.querySelector(`[data-mode='${mode}']`).classList.add("active");
 	document.body.style.backgroundColor = `var(--${mode})`;
+	btnAdd.style.color = `var(--${mode})`;
+	// btnDel.style.color = `var(--${mode})`;
 	initializeClock();
 	resetProgressBar();
 };
@@ -234,51 +236,89 @@ document.addEventListener(
 ///////////////////////////
 const input = document.getElementById("todo__add--input");
 const btnAdd = document.getElementById("todo__add--btn");
+const btnDel = document.getElementById("todo__list--item-delBtn");
+const chkBox = document.getElementById("todo__list--item-checkBox");
 const todoListDiv = document.querySelector(".todo__list");
 
 class TodoItem {
 	constructor(id, content) {
-		this.id = id;
+		this.id = +id.slice(-8);
 		this.content = content;
-		this.done = false;
+		this.isDone = false;
 	}
 }
 
 class TodoApp {
 	#todos = [];
+	#todo;
 	constructor() {
 		btnAdd.addEventListener("click", this._newTodo.bind(this));
+		todoListDiv.addEventListener(
+			"click",
+			this._findClickedElemsOnTodoItem.bind(this)
+		);
 	}
 
 	_renderTodo(todo) {
-		let html = `<div class="todo__list--item flex__parent">
-		<input type="checkbox" class="todo__list--item-checkBox">
-		<div class="todo__list--item-text">${todo.content}</div>
-	</div>`;
+		// 	let html = `<div class="todo__list--item flex__parent">
+		// 	<input type="checkbox" class="todo__list--item-checkBox">
+		// 	<div class="todo__list--item-text">${todo.content}</div><div class="todo__list--item-controls flex__parent">
+		// 	<a class="material-icons">more_horiz</a>
+		// 	</div>
+		// </div>`;
 
-		todoListDiv.insertAdjacentHTML("afterbegin", html);
+		const todoItem = document.createElement("div");
+		const item = document.querySelector(`[data-todo-item-id='${todo.id}']`);
+		const isDone = todo.isDone ? "done" : "";
+		todoItem.setAttribute("class", `todo__list--item flex__parent`);
+		todoItem.setAttribute("data-todo-item-id", todo.id);
+		let html = `<input type="checkbox" class="todo__list--item-checkBox">
+		<label for="todo__list--item-checkBox" class="todo__list--item-label ${isDone}"></label>
+	<div class="todo__list--item-text ${isDone}">${todo.content}</div><div class="todo__list--item-controls flex__parent">
+	<a id="todo__list--item-delBtn" class="material-icons">close</a>
+	</div>`;
+		todoItem.insertAdjacentHTML("afterbegin", html);
+
+		if (item) {
+			todoListDiv.replaceChild(todoItem, item);
+		}
+		todoListDiv.append(todoItem);
 	}
+	_findClickedElemsOnTodoItem(e) {
+		// const toggleDone = function () {};
+		if (e.target.classList.contains("todo__list--item-label")) {
+			const itemId = e.target.parentElement.dataset.todoItemId;
+			this._toggleDone(itemId);
+		}
+	}
+	_toggleDone(itemId) {
+		const index = this.#todos.findIndex((item) => item.id === +itemId);
+		this.#todos[index].isDone = !this.#todos[index].isDone;
+		// console.log(this.#todos[index]);
+		this._renderTodo(this.#todo);
+	}
+	_findSelecteditem() {}
 	_reset() {
 		input.value = "";
 	}
 	_newTodo() {
 		let content = input.value;
-		let id = Date.now() + "".slice(-6);
-		let todo;
+		let id = Date.now() + "";
+		// let todo;
 		// console.log(this.#todos);
 
 		//validation here before creating todoitem object
 		if (content === "") {
 			return;
 		}
-		todo = new TodoItem(id, content);
+		this.#todo = new TodoItem(id, content);
 
 		//add new todo to todos array
-		this.#todos.push(todo);
+		this.#todos.push(this.#todo);
 		console.log(this.#todos);
 
 		//render todo div
-		this._renderTodo(todo);
+		this._renderTodo(this.#todo);
 
 		//reset input field
 		this._reset();

@@ -18,7 +18,7 @@
 <body class="flex__parent">
   <div class="nav flex__parent">
     <div class="nav nav-bar flex__parent">
-      <a href="#" class="logo btn__nav btn--logo">Pomo<span><strong>Doro</strong></span></a>
+      <a href="#" class="logo btn__nav btn--logo">Pomo<span><strong>ToDo</strong></span></a>
       <a href="#" class="btn__nav btn--settings material-icons md-light">settings</a>
     </div>
   </div>
@@ -53,7 +53,8 @@
 
   <div class="todo__container">
     <div class="todo__newToDo--container flex__parent">
-      <input type="text" id="todo__add--input" class="todo__newToDo--input">
+      <input type="text" id="todo__add--input" class="todo__newToDo--input"
+        placeholder="Type in to do items here to make a list...">
       <div class="todo__newToDo--add">
         <a id="todo__add--btn" class="material-icons">
           add_circle
@@ -62,11 +63,17 @@
     </div>
 
     <div class="todo__list">
-      <!-- <div class="todo__list--item flex__parent">
-        <input type="checkbox" class="todo__list--item-checkBox">
+      <div class="todo__list--item flex__parent">
+
+        <input type="checkbox" id="todo__list--item-checkBox" class="todo__list--item-checkBox">
+        <label for="todo__list--item-checkBox" class="todo__list--item-label"></label>
         <div class="todo__list--item-text">Lorem, Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati,
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, unde!
           porro.</div>
-      </div> -->
+        <div class="todo__list--item-controls flex__parent">
+          <a id="todo__list--item-delBtn" class="material-icons">close</a>
+        </div>
+      </div>
       <!-- <div class="todo__list--item flex__parent">
         <input type="checkbox" class="todo__list--item-checkBox">
         <div class="todo__list--item-text"></div>
@@ -75,11 +82,8 @@
           <a class="material-icons">edit</a>
           <a class="material-icons">delete</a>
         </div>
-
+        
       </div> -->
-
-
-
 
     </div>
   </div>
@@ -87,7 +91,7 @@
   <div class="overlay flex__parent f_jc_aic overflowx-for-mobile hidden">
     <div class="modal__box">
       <div class="modal__header modal__section">
-        <a href="#" class="btn btn--close"><i class="fas fa-times"></i></a>
+        <a href="#" class="btn btn--close"><i class="material-icons">close</i></a>
         <h1>Timer Settings</h1>
 
       </div>
