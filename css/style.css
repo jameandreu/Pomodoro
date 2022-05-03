@@ -51,7 +51,7 @@ a {
 
 @font-face {
   font-family: "Digital";
-  src: url("../assets/fonts/digital.ttf"); }
+  src: url("../../assets/fonts/digital.ttf"); }
 
 body {
   font-family: "Montserrat", sans-serif;
@@ -224,7 +224,7 @@ body {
     .todo__list--item-text {
       min-width: calc(90% - 1.3rem);
       height: auto;
-      padding: 0.8rem 0.2rem;
+      padding: 0.8rem 0rem;
       overflow: auto;
       overflow-wrap: break-word;
       letter-spacing: 1.5px;
