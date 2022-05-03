@@ -231,7 +231,8 @@ body {
       line-height: 1.4;
       font-size: 0.8rem; }
       .todo__list--item-text.done {
-        text-decoration: line-through; }
+        text-decoration: line-through;
+        color: rgba(0, 0, 0, 0.5); }
     .todo__list--item-controls {
       align-items: center;
       justify-content: center; }

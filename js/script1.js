@@ -245,6 +245,7 @@ class TodoItem {
 		this.id = +id.slice(-8);
 		this.content = content;
 		this.isDone = false;
+		this.isDeleted = false;
 	}
 }
 
@@ -253,6 +254,7 @@ class TodoApp {
 	#todo;
 	constructor() {
 		btnAdd.addEventListener("click", this._newTodo.bind(this));
+		document.addEventListener("keydown", this._catchEnterKey.bind(this));
 		todoListDiv.addEventListener(
 			"click",
 			this._findClickedElemsOnTodoItem.bind(this)
@@ -269,43 +271,63 @@ class TodoApp {
 
 		const todoItem = document.createElement("div");
 		const item = document.querySelector(`[data-todo-item-id='${todo.id}']`);
+
 		const isDone = todo.isDone ? "done" : "";
 		todoItem.setAttribute("class", `todo__list--item flex__parent`);
 		todoItem.setAttribute("data-todo-item-id", todo.id);
 		let html = `<input type="checkbox" class="todo__list--item-checkBox">
 		<label for="todo__list--item-checkBox" class="todo__list--item-label ${isDone}"></label>
 	<div class="todo__list--item-text ${isDone}">${todo.content}</div><div class="todo__list--item-controls flex__parent">
-	<a id="todo__list--item-delBtn" class="material-icons">close</a>
+	<a id="todo__list--item-delBtn" class="todo__list--item-delBtn material-icons">close</a>
 	</div>`;
 		todoItem.insertAdjacentHTML("afterbegin", html);
 
-		if (item) {
-			todoListDiv.replaceChild(todoItem, item);
+		if (todo.isDeleted) {
+			item.remove();
+			return;
 		}
-		todoListDiv.append(todoItem);
+
+		if (item) todoListDiv.replaceChild(todoItem, item);
+		else todoListDiv.append(todoItem);
 	}
 	_findClickedElemsOnTodoItem(e) {
-		// const toggleDone = function () {};
+		let itemId;
+		const getTodoListItemId = function (e) {
+			return e.target.closest(".todo__list--item").dataset.todoItemId;
+		};
 		if (e.target.classList.contains("todo__list--item-label")) {
-			const itemId = e.target.parentElement.dataset.todoItemId;
+			itemId = getTodoListItemId(e);
 			this._toggleDone(itemId);
 		}
+		if (e.target.classList.contains("todo__list--item-delBtn")) {
+			itemId = getTodoListItemId(e);
+			this._deleteTodo(itemId);
+		}
+	}
+	_catchEnterKey(e) {
+		if (e.key !== "Enter") return;
+		this._newTodo();
+	}
+	_deleteTodo(itemId) {
+		const index = this._findSelectedItem(itemId);
+		this.#todos[index].isDeleted = true; //
+		this._renderTodo(this.#todos[index]);
 	}
 	_toggleDone(itemId) {
-		const index = this.#todos.findIndex((item) => item.id === +itemId);
+		const index = this._findSelectedItem(itemId);
+
 		this.#todos[index].isDone = !this.#todos[index].isDone;
-		// console.log(this.#todos[index]);
-		this._renderTodo(this.#todo);
+		this._renderTodo(this.#todos[index]);
 	}
-	_findSelecteditem() {}
+	_findSelectedItem(itemId) {
+		return this.#todos.findIndex((item) => item.id === +itemId);
+	}
 	_reset() {
 		input.value = "";
 	}
 	_newTodo() {
 		let content = input.value;
 		let id = Date.now() + "";
-		// let todo;
-		// console.log(this.#todos);
 
 		//validation here before creating todoitem object
 		if (content === "") {
@@ -315,7 +337,6 @@ class TodoApp {
 
 		//add new todo to todos array
 		this.#todos.push(this.#todo);
-		console.log(this.#todos);
 
 		//render todo div
 		this._renderTodo(this.#todo);

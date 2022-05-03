@@ -232,9 +232,11 @@ body {
 				overflow-wrap: break-word;
 				letter-spacing: 1.5px;
 				line-height: 1.4;
+
 				font-size: 0.8rem;
 				&.done {
 					text-decoration: line-through;
+					color: rgba(0, 0, 0, 0.5);
 				}
 			}
 
