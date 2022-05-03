@@ -51,7 +51,7 @@ a {
 
 @font-face {
   font-family: "Digital";
-  src: url("./assets/fonts/digital.ttf") format("truetype"); }
+  src: url("../../assets/fonts/digital.ttf") format("truetype"); }
 
 body {
   font-family: "Montserrat", sans-serif;
