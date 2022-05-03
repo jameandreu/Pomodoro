@@ -315,7 +315,6 @@ class TodoApp {
 	}
 	_toggleDone(itemId) {
 		const index = this._findSelectedItem(itemId);
-
 		this.#todos[index].isDone = !this.#todos[index].isDone;
 		this._renderTodo(this.#todos[index]);
 	}
