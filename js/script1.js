@@ -72,7 +72,7 @@ const updateCurrentMode = function (currentMode) {
 	if (currentMode == "pomodoro") {
 		timer.session++;
 		console.log(`session: ${timer.session}`);
-		if (timer.session < 4) {
+		if (timer.session < timer.longBreakInterval) {
 			switchMode("shortBreak");
 		} else {
 			console.log(`session: ${timer.session}`);
