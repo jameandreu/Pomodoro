@@ -155,7 +155,7 @@ body {
 .todo__newToDo--container {
   width: inherit;
   height: 2.5rem;
-  background-color: red;
+  background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px, rgba(0, 0, 0, 0.15) 0px 3px 6px; }
 
 .todo__newToDo--input {
