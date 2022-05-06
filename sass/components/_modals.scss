@@ -10,6 +10,22 @@
 		// top: 300px;
 	}
 	&__section {
+		input[type="number"] {
+			height: 3rem;
+			width: 6.25rem;
+			padding: 0.5rem 0.5rem;
+			margin-top: 5px;
+			font-size: 1rem;
+			background-color: rgb(239, 239, 239);
+			color: $color-tertiary-dark_gray;
+			border: none;
+
+			&:active,
+			&:focus {
+				border: none;
+				outline: none;
+			}
+		}
 		&--toggle {
 			display: flex;
 			justify-content: space-between;
@@ -61,14 +77,7 @@
 		}
 
 		input[type="number"] {
-			height: 3rem;
-			width: 6.25rem;
-			padding: 0.5rem 0.5rem;
 			margin-top: 5px;
-			font-size: 1rem;
-			background-color: rgb(239, 239, 239);
-			color: $color-tertiary-dark_gray;
-			border: none;
 
 			&:active,
 			&:focus {
@@ -76,6 +85,10 @@
 				outline: none;
 			}
 		}
+	}
+	&__long-break-interval {
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	&__btn {

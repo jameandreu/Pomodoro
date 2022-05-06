@@ -15,6 +15,7 @@ const alarmSound = new Audio("../assets/sounds/alarm-wood.mp3");
 let progressFillArea;
 let timer_mode = document.querySelector("#timer-modes");
 let cio;
+let longBreakInterval = document.querySelector(".input__long-break-interval");
 let pomodoro = document.querySelector(".input__pomodoro");
 let shortBreak = document.querySelector(".input__short-break");
 let longBreak = document.querySelector(".input__long-break");
@@ -215,6 +216,8 @@ confirm.addEventListener("click", function () {
 	timer.pomodoro = pomodoro.value;
 	timer.shortBreak = shortBreak.value;
 	timer.longBreak = longBreak.value;
+	timer.longBreakInterval = longBreakInterval.value;
+	console.log(timer);
 	clearInterval(cio);
 	initializeClock();
 	overlay.classList.toggle("hidden");
