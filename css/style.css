@@ -51,7 +51,7 @@ a {
 
 @font-face {
   font-family: "Digital";
-  src: url("../../assets/fonts/digital.ttf"); }
+  src: url("./assets/fonts/digital.ttf"); }
 
 body {
   font-family: "Montserrat", sans-serif;
@@ -246,6 +246,19 @@ body {
   border-radius: 0.8rem;
   position: relative; }
 
+.modal__section input[type="number"] {
+  height: 3rem;
+  width: 6.25rem;
+  padding: 0.5rem 0.5rem;
+  margin-top: 5px;
+  font-size: 1rem;
+  background-color: #efefef;
+  color: #555555;
+  border: none; }
+  .modal__section input[type="number"]:active, .modal__section input[type="number"]:focus {
+    border: none;
+    outline: none; }
+
 .modal__section--toggle {
   display: flex;
   justify-content: space-between;
@@ -288,17 +301,14 @@ body {
     color: #555555;
     font-weight: 700; }
   .modal__inputs input[type="number"] {
-    height: 3rem;
-    width: 6.25rem;
-    padding: 0.5rem 0.5rem;
-    margin-top: 5px;
-    font-size: 1rem;
-    background-color: #efefef;
-    color: #555555;
-    border: none; }
+    margin-top: 5px; }
     .modal__inputs input[type="number"]:active, .modal__inputs input[type="number"]:focus {
       border: none;
       outline: none; }
+
+.modal__long-break-interval {
+  align-items: center;
+  justify-content: space-between; }
 
 .modal__btn {
   display: block;
