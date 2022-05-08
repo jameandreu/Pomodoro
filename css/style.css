@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;1,700&display=swap");
 :root {
   --pomodoro: #db524d;
   --shortBreak: #54b370;
@@ -238,6 +238,35 @@ body {
       justify-content: center; }
       .todo__list--item-controls a {
         color: #a3a3a3; }
+
+.description {
+  background-color: #fff;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4rem; }
+  .description__container {
+    margin-top: 2rem;
+    width: 20rem; }
+    @media (min-width: 40em) {
+      .description__container {
+        width: 30rem; } }
+    .description__container h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #541c1f; }
+    .description__container h2 {
+      font-size: 1.8rem;
+      color: #541c1f; }
+    .description__container p {
+      margin-top: 1.1rem;
+      line-height: 1.7;
+      letter-spacing: 2px;
+      font-weight: 300;
+      color: #6e5356; }
+
+.footer {
+  flex-direction: column;
+  background-color: #5a5050; }
 
 .modal__box {
   width: 30rem;

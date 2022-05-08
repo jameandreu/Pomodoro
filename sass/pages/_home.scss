@@ -252,3 +252,41 @@ body {
 		}
 	}
 }
+.description {
+	background-color: #fff;
+	// background-color: #fff;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 4rem;
+
+	&__container {
+		margin-top: 2rem;
+		width: 20rem;
+		@include breakpoint-up(medium) {
+			width: 30rem;
+		}
+		h1 {
+			font-size: 2.5rem;
+			font-weight: 700;
+			color: hsl(357, 50%, 22%);
+		}
+		h2 {
+			font-size: 1.8rem;
+			color: hsl(357, 50%, 22%);
+		}
+		p {
+			margin-top: 1.1rem;
+			line-height: 1.7;
+			letter-spacing: 2px;
+			font-weight: 300;
+			color: hsl(355, 14%, 38%);
+		}
+	}
+}
+
+.footer {
+	flex-direction: column;
+	background-color: rgb(90, 80, 80);
+	&__container {
+	}
+}
