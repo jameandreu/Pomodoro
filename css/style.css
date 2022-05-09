@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;1,700&display=swap");
 :root {
   --pomodoro: #db524d;
   --shortBreak: #54b370;
@@ -238,6 +238,60 @@ body {
       justify-content: center; }
       .todo__list--item-controls a {
         color: #a3a3a3; }
+
+.description {
+  background-color: #fff;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 4rem; }
+  .description__container {
+    margin-top: 2rem;
+    width: 23rem; }
+    @media (min-width: 40em) {
+      .description__container {
+        width: 40rem; } }
+    .description__container h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #541c1f; }
+    .description__container h2 {
+      font-size: 1.8rem;
+      color: #541c1f; }
+    .description__container p {
+      margin-top: 1.1rem;
+      line-height: 1.7;
+      letter-spacing: 2px;
+      font-weight: 300;
+      color: #6e5356; }
+    .description__container ul > li {
+      letter-spacing: 2px;
+      font-weight: 300;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #6e5356;
+      padding-left: 1rem; }
+
+.footer {
+  flex-direction: column;
+  align-items: center;
+  height: 10rem;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-top: 1px solid rgba(187, 179, 179, 0.699);
+  background-color: white; }
+  .footer__container {
+    display: flex;
+    gap: 1rem; }
+  .footer__links {
+    font-weight: 700;
+    color: #6e5356; }
+  .footer__icons {
+    font-size: 1.7rem;
+    color: #6e5356; }
+  .footer__text {
+    font-size: 0.8rem; }
 
 .modal__box {
   width: 30rem;
